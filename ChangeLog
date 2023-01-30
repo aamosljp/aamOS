@@ -1,0 +1,47 @@
+2020-04-25  aamos  <aamos@iMac.nekonet.fi>
+
+	* src/console.h: Removed.
+	* src/font.h: Removed.
+	* src/gdt.c: Removed.
+	* src/int.h: Removed.
+	* src/interrupt_handler.c: Removed.
+	* src/isr.c: Removed.
+	* src/isrs.c: Removed.
+	* src/kernel.h: Removed.
+	* src/keyboard.h: Removed.
+	* src/multiboot.h: Removed.
+	* src/pic.c: Removed.
+	* src/serial.h: Removed.
+	* src/system.h: Removed.
+	* src/utils.h: Removed.
+	* src/vga.h: Removed.
+	* .externalToolBuilders/.gitignore: New file.
+	* .settings/.gitignore: New file.
+	* .settings/org.eclipse.cdt.codan.core.prefs: New file.
+	* .settings/org.eclipse.cdt.core.prefs: New file.
+	* .settings/org.eclipse.cdt.ui.prefs: New file.
+	* build.sh: 
+	* debug.sh: 
+	* make-iso-linux.sh: 
+	* make-iso-mac.sh: 
+	* run.sh: 
+	* src/boot/idt.c (isr_handler): 
+	(irq0_handler): 
+	(irq1_handler): 
+	(irq2_handler): 
+	(irq3_handler): 
+	(irq4_handler): 
+	(irq5_handler): 
+	(irq6_handler): 
+	(irq7_handler): 
+	(irq8_handler): 
+	(irq9_handler): 
+	(irq10_handler): 
+	(irq11_handler): 
+	(irq12_handler): 
+	(irq13_handler): 
+	(irq14_handler): 
+	(irq15_handler): 
+	* src/boot/start.s: 
+	* src/kernel/console.c: 
+	* src/kernel/irq.c: 
