@@ -38,6 +38,12 @@ static int serial_received(void) {
 	return inb((uint16_t)(PORT + 5)) & 1;
 }
 
+uint8_t read_serialv() {
+	while (serial_received() == 0)
+		;
+	return inbv(PORT);
+}
+
 uint8_t read_serial() {
 	while (serial_received() == 0)
 		;

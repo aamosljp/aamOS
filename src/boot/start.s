@@ -5,10 +5,13 @@ AOUT_KLUDGE equ 0
 MAGIC equ 0xe85250d6
 ARCH equ 0
 
+TAG_INFO_RQ equ 1
 TAG_FB equ 5
+TAG_MMAP equ 6
 TAG_OPTIONAL equ 1
 TAG_END equ 0
 
+extern do_e820
 extern kernel_main
 
 section .text
@@ -23,13 +26,19 @@ multiboot_header:
 	dd ARCH
 	dd multiboot_header_end - multiboot_header
 	dd -(MAGIC + ARCH + (multiboot_header_end - multiboot_header))
+info_rq_tag_start:
+    dw TAG_INFO_RQ
+    dw TAG_OPTIONAL
+    dd info_rq_tag_end - info_rq_tag_start
+    dd 1, 6
+info_rq_tag_end:
 framebuffer_tag_start:
-	dw TAG_FB
-	dw TAG_OPTIONAL
-	dd framebuffer_tag_end - framebuffer_tag_start
-	dd 1024
-	dd 768
-	dd 32
+    dw TAG_FB
+    dw TAG_OPTIONAL
+    dd framebuffer_tag_end - framebuffer_tag_start
+    dd 1024
+    dd 768
+    dd 32
 framebuffer_tag_end:
 	dw TAG_END
 	;dw 0

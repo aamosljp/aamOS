@@ -9,12 +9,12 @@ if [[ "$1" == "qemu" ]] ; then
 		qemu-system-i386 -hda aamOS.iso -s -S &
 		gdb --eval-command='target remote localhost:1234' --eval-command='symbol-file src/aamOS.elf'
 	else
-		qemu-system-i386 -hda aamOS.iso -serial stdio -m size=4096
+		qemu-system-i386 -hda aamOS.iso -serial stdio -m size=8192
 	fi
 elif [[ "$1" == "bochs" ]] ; then
 	bochs -f bochsrc -q
 else
-	qemu-system-i386 -hda aamOS.iso -serial stdio -m size=4096
+	qemu-system-i386 -hda aamOS.iso -serial stdio -m size=8192
 fi
 
 make clean

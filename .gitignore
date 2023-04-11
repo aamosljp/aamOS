@@ -48,3 +48,12 @@ Thumbs.db
 *.mov
 *.wmv
 
+._aamOS.iso
+._bochsrc
+._run
+.cproject
+.externalToolBuilders/
+.project
+.settings/
+aamOS.elf
+aamOS.iso

@@ -19,6 +19,12 @@ __asm__ ("outb %%al,%%dx"::"a" (value),"d" (port))
 
 #define inb(port) ({ \
 unsigned char _v = 0; \
+__asm__ ("inb %%dx,%%al":"=a" (_v):"d" (port)); \
+_v; \
+})
+
+#define inbv(port) ({ \
+unsigned char _v = 0; \
 __asm__ volatile ("inb %%dx,%%al":"=a" (_v):"d" (port)); \
 _v; \
 })

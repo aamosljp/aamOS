@@ -4,7 +4,7 @@ CC86 := i386-elf-gcc
 
 WARNINGS := -Wall -Wextra
 
-CFLAGS := -nostdlib -O2 -ffreestanding -g -std=gnu99 -Iinclude -nostdinc -march=i386 $(WARNINGS)
+CFLAGS := -nostdlib -O2 -ffreestanding -c -g -std=gnu99 -Iinclude -nostdinc -march=i386 $(WARNINGS)
 
 SRCFILES := $(shell find kernel boot -name "*.c")
 ASMFILES := $(shell find kernel boot -name "*.s")
@@ -25,7 +25,7 @@ all: $(OBJFILES) aamOS.elf
 	$(AS) -f elf32 $< -o $@
 
 aamOS.elf: $(OBJFILES)
-	$(CC86) $(WARNINGS) -ffreestanding -nostdlib -I. -T link.ld -o aamOS.elf $?
+	$(CC86) $(WARNINGS) -ffreestanding -nostdlib -T link.ld -o aamOS.elf $?
 	
 clean:
 	rm -rf isodir

@@ -18,6 +18,7 @@
 #include <asm/system.h>
 #include <console.h>
 #include <keyboard.h>
+#include <memory.h>
 #include <multiboot2.h>
 #include <serial.h>
 #include <stdio.h>
@@ -25,9 +26,9 @@
 #include <time.h>
 #include <utils.h>
 #include <vga.h>
-#include <memory.h>
+#include <aamOS/kprintf.h>
 
-extern char printbuf[1024];
+extern uint32_t memoryEnd;
 extern char *weekdays[7];
 extern long startup_time;
 extern void idt_init(void);
@@ -38,17 +39,12 @@ void kernel_main(unsigned long magic, unsigned long addr);
 void kernel_main(unsigned long magic, unsigned long addr) {
   init_serial(COM1);
   struct multiboot_tag *tag;
-  write_serial_str("Checking bootloader magic number...\n");
+  kprintf("Checking bootloader magic number...\n");
   if (magic != MULTIBOOT2_BOOTLOADER_MAGIC) {
-    write_serial_str("Invalid magic number!\n");
+    kprintf("Invalid magic number!\n");
     iret();
   }
-  write_serial_str("Loading memory map...\n");
-  tag = get_tag(MULTIBOOT_TAG_TYPE_MMAP, addr);
-  if(init_mmap((struct multiboot_tag_mmap *)tag) == -1) {
-      write_serial_str("Invalid memory map given by GRUB!\n");
-      iret();
-  }
+  init_mmap(get_tag(MULTIBOOT_TAG_TYPE_MMAP, addr));
   tag = get_tag(MULTIBOOT_TAG_TYPE_FRAMEBUFFER, addr);
   VGA_init((struct multiboot_tag_framebuffer *)tag);
   console_init((struct multiboot_tag_framebuffer *)tag, WHITE, BLACK);
@@ -57,6 +53,7 @@ void kernel_main(unsigned long magic, unsigned long addr) {
   sti();
   kb_init();
   time_init();
+  kprintf("%x\n", memoryEnd);
 }
 
 struct multiboot_tag *get_tag(uint32_t tag_type, unsigned long addr) {
